@@ -9,9 +9,6 @@ Tropa(psexo,pcostoalimentacion,pcostooro,pataque,pdefensa,pvida,pvelocidad,pturn
 	ataqueneto = pataque;
 }
 
-void Caballero::Ataque(){
-
-}
 
 string Caballero::toString(){
 	return "Caballero";

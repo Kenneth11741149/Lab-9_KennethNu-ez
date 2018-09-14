@@ -9,9 +9,8 @@ Tropa(psexo,pcostoalimentacion,pcostooro,pataque,pdefensa,pvida,pvelocidad,pturn
 	ataqueneto = pataque;
 }
 
-void Soldado::ataque(){
-	cout << "Soldado atacando" << endl;
-}
+
+
 string Soldado::toString(){
 	return "Soldado";
 }

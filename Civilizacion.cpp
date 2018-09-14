@@ -16,5 +16,10 @@ string Civilizacion::toString(){
 }
 
 Civilizacion::~Civilizacion(){
-
+//El guerrero especial
+	aldeanos.clear(); //Contador de aldeanos.
+	troops.clear(); // Contador de tropas 
+	housing.clear(); // Contador de facil accesso de casas
+	buildings.clear(); //Contador del resto de edificios.
+	training.clear();
 }

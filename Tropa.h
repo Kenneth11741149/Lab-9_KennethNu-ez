@@ -25,8 +25,14 @@ private:
 	double vida;
 	double velocidad;
 	int turnosentrenamiento;
+protected:
+	double ataqueneto;
 public:
 	Tropa();
+
+	double getAtaqueneto(){
+		return ataqueneto;
+	}
 
 	Tropa(string,int,int,double,double,double,double,int);
 
@@ -96,8 +102,9 @@ public:
 
 	virtual string toString();
 	
-	virtual void Ataque(){
+	virtual bool Ataque(Tropa* contrincante){
 		cout << "Tropa simple no lista para combate. " << endl;
+		return true;
 	}
 
 	~Tropa(){

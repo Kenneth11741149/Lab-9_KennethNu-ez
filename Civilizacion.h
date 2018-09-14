@@ -25,21 +25,28 @@ using std::vector;
 class Civilizacion{
 private:
 	string nombre;
-	int oro;
-	int madera;
-	int piedra;
-	int alimento;
+	int oro; // oro
+	int madera; // madera 
+	int piedra; //piedra
+	int alimento; //alimento
 	int poblacionmaxima; // Poblacion maxima.
 	int poblacionactual; // Poblacion actual
 	int capacidadpoblacion; // Capacidad de poblacion que aumenta con casas.
-	int cuarteles = 0;
-	int castillos = 0;
+	int cuarteles = 0; // cuarteles
+	int castillos = 0; // castillos
+ 
+	//Para el metodo polimorfico.
+	vector<Tropa*> polimorfictroops;
+	//
+
+
+	// Metodos para evitar declarar punteros. // memory management
 	GuerreroEspecial trooper; //El guerrero especial
 	vector<Aldeano> aldeanos; //Contador de aldeanos.
 	vector<Tropa>	troops; // Contador de tropas 
 	vector<Casa> housing; // Contador de facil accesso de casas
 	vector<Edificio> buildings; //Contador del resto de edificios.
-	vector<Tropa> training;
+	vector<Tropa> training; // tropas en entrenamiento
 public:
 	Civilizacion(){
 		
@@ -57,6 +64,19 @@ public:
 	void setCastillos(int pcastillos){
 		castillos = pcastillos;
 
+	}
+
+	void addPolimorfictroop(Tropa* ptropa){
+		polimorfictroops.push_back(ptropa);
+	}
+
+
+	void setPolimorfictroops(vector<Tropa*> ppolimorfictroops){
+		polimorfictroops = ppolimorfictroops;
+	}
+
+	vector<Tropa*> getPolimorfictroops(){
+		return polimorfictroops;
 	}
 
 
@@ -97,7 +117,7 @@ public:
 
 	void addTraining(Tropa h){
 		training.push_back(h);
-		capacidadpoblacion++;
+		poblacionactual++;
 	}
 ///
 

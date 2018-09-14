@@ -26,11 +26,14 @@ using std::vector;
 
 
 int main(){
+		
 	 cout << "Bienvenido al Laboratorio #9 de Kenneth" << endl;
 
 
 	 //Declaracion de variables reutilizables.
-	 //Declaracion de variables sin apuntadores me ahorra el paso de borrar manualmente las variables.
+	 //La aplicacion de los no apuntadores y funciones extra en la herencia me permite totalmente liberarme del estress de liberar memoria manualmente.
+	 //Pero el polimorfismo solo funciona con apuntadores entonces tendre que hacer diferentes aplicaciones de funciones para lograr mi objetivo de usar pocos apuntadores;
+	 //Para el momento que me toque atacar tendre que usar polimorfismo y por ende apuntadores. :(  ..... mis comentarios son privados ....eso espero  .... :)
 	 vector<Civilizacion> civs;
 	 vector<Jugador> players;
 	 char resp = 's';
@@ -45,6 +48,10 @@ int main(){
 	 int option2 = 0;
 	 //If decision variables
 	 int option3 = 0;
+	 int option4 = 0;
+	 int option5 = 0;
+	 int option6 = 0;
+	 int option7 = 0;
 	 //Special function variables
 	 int temporal = 0;
 	 int gendermaker = 0;
@@ -143,7 +150,7 @@ int main(){
 	 			break;
 	 		case 4:
 	 			{	//Inicio del scope case 4
-	 				cout << "Con que jugador va a ingresar? " << endl;
+	 				cout << "Con que jugador va a ingresar? Escoge al siguiente en turno." << endl;
 	 				for(int i = 0; i < players.size(); i++){
 	 					cout << i <<". "<< players[i].toString() << endl;
 	 				}
@@ -178,18 +185,24 @@ int main(){
 							cout << "Numero de soldados: " << numsoldados << endl;
 							otratemp = players[temporal].getCivilizacion();
 							for(int i = 0; i < otratemp.getTraining().size();i++){
-								if(     ((Tropa)otratemp.getTraining()[i]).getTurnosentrenamiento() > 0){
+								if(  ((Tropa)otratemp.getTraining()[i]).getTurnosentrenamiento() > 0){
 									int yanotengovariables = ((Tropa)otratemp.getTraining()[i]).getTurnosentrenamiento();
 									if(yanotengovariables == 1){
-										cout << otratemp.getTraining()[i].toString() << "Ha terminado su entrenamiento" <<endl;
+										cout << otratemp.getTraining()[i].toString() << " Ha terminado su entrenamiento" <<endl;
 										otratemp.addTropa(otratemp.getTraining()[i]);
 										vector<Tropa> lmfao = otratemp.getTraining();
 										lmfao.erase(lmfao.begin() + i);
-										cout << "" << endl;
-									}
-									yanotengovariables--;
-									((Tropa)otratemp.getTroops()[i]).setTurnosentrenamiento(yanotengovariables);
-
+										otratemp.setTraining(lmfao);
+										players[temporal].setCivilizacion(otratemp);
+									} else if(yanotengovariables > 1){
+										yanotengovariables--;
+										vector<Tropa> trainingnull =  otratemp.getTraining();
+										trainingnull[i].setTurnosentrenamiento(yanotengovariables);
+										otratemp.setTraining(trainingnull);
+										//((Tropa)otratemp.getTraining()[i]).setTurnosentrenamiento(yanotengovariables);
+										players[temporal].setCivilizacion(otratemp);
+									} 
+									
 								}
 							}
 
@@ -213,7 +226,7 @@ int main(){
 		 				cout << "5. Desterrar poblacion." << endl;
 		 				cout << "6. Batalla." << endl;
 		 				cout << "7. Finalizar Turno." << endl;
-		 				cout << "8. Volver al menu principal." << endl;
+		 				cout << "8. Terminar el Programa" << endl;
 		 				input = "";
 		 				option2 = 0;
 		 				stringstream().swap(stream);
@@ -369,7 +382,6 @@ int main(){
 	 								if(otratemp.getCuarteles() > 0){
 	 									soldat = true;
 	 									caballerie = true;
-
 	 								} else if(otratemp.getCastillos() > 0) {
 	 									guerr = true;
 
@@ -380,7 +392,9 @@ int main(){
 	 									if(soldat && otratemp.getPoblacionactual() + 1 <= otratemp.getPoblacionmaxima()){
 	 										if(otratemp.getAlimento() >= 90 && otratemp.getOro() >= 25){
 	 											Soldado newsoldier = Soldado();
+	 											Soldado* newsoldier2 = new Soldado();
 	 											otratemp.addTraining(newsoldier);
+	 											otratemp.addPolimorfictroop(newsoldier2);
 	 											poblacionactual++;
 	 											players[temporal].setCivilizacion(otratemp);
 	 											cout << "Tropa se ha puesto bajo entrenamiento" << endl;
@@ -396,7 +410,9 @@ int main(){
 	 									if(caballerie && otratemp.getPoblacionactual() + 1 <= otratemp.getPoblacionmaxima()){
 	 										if(otratemp.getAlimento() >= 110 && otratemp.getOro() >= 60){
 	 											Caballero newCaballero = Caballero();
+	 											Caballero* newCaballero2 = new Caballero();
 	 											otratemp.addTraining(newCaballero);
+	 											otratemp.addPolimorfictroop(newCaballero2);
 	 											players[temporal].setCivilizacion(otratemp);
 	 											poblacionactual++;
 	 											cout << "Tropa se ha puesto bajo entrenamiento" << endl;
@@ -411,7 +427,9 @@ int main(){
 	 									if(guerr && otratemp.getPoblacionactual() + 1 <= otratemp.getPoblacionmaxima()){
 	 										if(otratemp.getAlimento() >= 150 && otratemp.getOro() >=90){
 	 											GuerreroEspecial newGuerr = GuerreroEspecial();
+	 											GuerreroEspecial* newGuerr2 = new GuerreroEspecial();
 	 											otratemp.addTraining(newGuerr);
+	 											otratemp.addPolimorfictroop(newGuerr2);
 	 											players[temporal].setCivilizacion(otratemp);
 	 											poblacionactual++;
 	 											cout << "Tropa se ha puesto bajo entrenamiento" << endl;
@@ -460,10 +478,99 @@ int main(){
 	 							}	//End of scope case 5 switch case option 2
 
 	 							break;
-	 						case 6:	
-	 							{
+	 						case 6:	 //Batalla.
+	 							{	//Inicio del scope case 6
+	 								cout << "Alerta la seccion batalla no ha sido probada en combaate " << endl;
+	 								cout << "A que jugador deseas atacar? " << endl;
+					 				for(int i = 0; i < players.size(); i++){
+					 					cout << i <<". "<< players[i].toString() << endl;
+					 				}
+					 				input = "";
+					 				cin >> input;
+					 				stringstream().swap(stream);
+					 				stream << input;
+					 				stream >> option5;
+	 								if( option5 >= 0 && option5 <= players.size()-1 && players.size() > 0){
+	 									if(players[temporal].getCivilizacion().getTroops().size() > 0 && players[option5].getCivilizacion().getTroops().size() > 0){
+	 										bool gameon = true;
+	 										int veces = 5;
+	 										while(gameon){
+	 											cout << "Player One tus tropas son: " << endl;
+	 											for(int i = 0; i < players[temporal].getCivilizacion().getPolimorfictroops().size();i++){
+	 												cout << i <<players[temporal].getCivilizacion().getPolimorfictroops()[i] ->toString() << endl;
+	 											}
+	 											cout << "Que tropa utilizaras? " << endl;
+	 											option6 = 0;
+	 											input = "";
+	 											cin >> input;
+					 							stringstream().swap(stream);
+					 							stream << input;
+					 							stream >> option6;
+					 							Tropa* playerjuan;
+					 							if(option6 >= 0 && option6 <= players[temporal].getCivilizacion().getPolimorfictroops().size() -1 && players[temporal].getCivilizacion().getPolimorfictroops().size() > 0){
+					 								playerjuan = players[temporal].getCivilizacion().getPolimorfictroops()[option6];
+					 							} else {
+					 								cout << "Error defaulted to 0" << endl;
+					 								playerjuan = players[temporal].getCivilizacion().getPolimorfictroops()[0];
+					 							}
 
-	 							}
+					 							
+
+					 							
+					 							cout << "Player Two tus tropas son: " << endl;
+	 											for(int i = 0; i < players[option5].getCivilizacion().getPolimorfictroops().size();i++){
+	 												cout << i << players[temporal].getCivilizacion().getPolimorfictroops()[i]->toString() << endl;
+	 											}
+	 											cout << "Jugador 2 que tropa utilizaras? " <<endl;
+	 											input = "";
+	 											option7 = 0;
+	 											stringstream().swap(stream);
+	 											stream << input;
+	 											stream >> option7;
+	 											Tropa* playertwo;
+	 											if(option7 >= 0 && option7 <= players[option5].getCivilizacion().getPolimorfictroops().size() -1 && players[option5].getCivilizacion().getPolimorfictroops().size() > 0){
+	 												playertwo = players[option5].getCivilizacion().getPolimorfictroops()[option7];
+	 											} else {
+	 												cout << "Defaulted to Zero" << endl;
+	 												playertwo = players[option5].getCivilizacion().getPolimorfictroops()[option7];
+	 											}
+
+	 											if(playerjuan->Ataque(playertwo)){
+	 												//si retorna verdadero es que gano.
+	 												cout << "Player one has ganado este encuentro. " << endl;
+	 												vector<Tropa*> polimorfictroopstempnull = players[option5].getCivilizacion().getPolimorfictroops();
+	 												polimorfictroopstempnull.erase(polimorfictroopstempnull.begin() + option7);
+	 												players[option5].getCivilizacion().setPolimorfictroops(polimorfictroopstempnull);
+	 											} else {
+	 												//si retorna falso es que perdio.
+	 												vector<Tropa*> polimorfictroopstempnull2 = players[temporal].getCivilizacion().getPolimorfictroops();
+	 												polimorfictroopstempnull2.erase(polimorfictroopstempnull2.begin() + option6);
+	 												players[temporal].getCivilizacion().setPolimorfictroops(polimorfictroopstempnull2);
+	 												cout << "Player one has perdido este encuentro. " << endl;
+
+	 											}
+	 											if(players[temporal].getCivilizacion().getPolimorfictroops().size() <= 0 || players[option5].getCivilizacion().getPolimorfictroops().size() <= 0){
+	 												gameon = false;
+	 												
+	 											}
+	 										} //Fin del while de los turnos.
+	 										
+	 										
+
+
+
+	 									}	else {
+	 										cout << "Lo sentimos uno de los 2 no tiene tropas." << endl;
+	 									}
+
+	 								} else {
+	 									cout << "Invalid Entry" << endl;
+	 								}
+
+	 								
+
+
+	 							} // Fin del scope case 6
 
 	 							break;
 	 						case 7:
@@ -474,7 +581,7 @@ int main(){
 	 							break;
 	 						case 8:
 	 							{
-
+	 								return 0;
 	 							}
 
 	 							break;
