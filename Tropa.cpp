@@ -8,7 +8,7 @@ Tropa::Tropa(string psexo,int pcostoalimentacion, int pcostooro, double pataque,
 	sexo = psexo;
 	costoalimentacion = pcostoalimentacion;
 	costooro = pcostooro;
-	ataque = pataque;
+	attack = pataque;
 	defensa = pdefensa;
 	vida = pvida;
 	velocidad = pvelocidad;

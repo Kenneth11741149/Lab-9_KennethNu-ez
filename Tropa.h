@@ -20,7 +20,7 @@ private:
 	string sexo;
 	int costoalimentacion;
 	int costooro;
-	double ataque;
+	double attack;
 	double defensa;
 	double vida;
 	double velocidad;
@@ -34,7 +34,7 @@ public:
 		sexo = psexo;
 	}
 
-	void setCostoalimentacion(string pcostoalimentacion){
+	void setCostoalimentacion(int pcostoalimentacion){
 		costoalimentacion = pcostoalimentacion;
 	}
 
@@ -43,7 +43,7 @@ public:
 	}
 
 	void setAtaque(double pataque){
-		ataque = pataque;
+		attack = pataque;
 	}
 
 	void setDefensa(double pdefensa){
@@ -75,7 +75,7 @@ public:
 	}
 
 	double getAtaque(){
-		return ataque;
+		return attack;
 	}
 
 	double getDefensa(){
@@ -96,7 +96,7 @@ public:
 
 	virtual string toString();
 	
-	virtual void ataque(){
+	virtual void Ataque(){
 		cout << "Tropa simple no lista para combate. " << endl;
 	}
 

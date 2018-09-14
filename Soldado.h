@@ -1,7 +1,7 @@
 #ifndef SOLDADO_H
 #define SOLDADO_H
 
-#include "Solado.h"
+#include "Tropa.h"
 
 class Soldado:public Tropa{
 private:
@@ -19,6 +19,7 @@ public:
 	double getAtaqueneto(){
 		return ataqueneto;
 	}
+
 	string toString();
 };	
 #endif
