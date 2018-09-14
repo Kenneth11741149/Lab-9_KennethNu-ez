@@ -292,7 +292,7 @@ int main(){
 	 								} else if(option3 == 3){
 
 	 								} else {
-	 									cout << "Invalid Entry"
+	 									cout << "Invalid Entry" << endl;
 	 								} // end if of building decision.
 
 

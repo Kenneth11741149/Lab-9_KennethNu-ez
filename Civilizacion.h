@@ -4,6 +4,8 @@
 #include "GuerreroEspecial.h"
 #include "Aldeano.h"
 #include "Tropa.h"
+#include "Casa.h"
+#include "Edificio.h"
 
 
 #include <iostream>
@@ -42,6 +44,7 @@ public:
 	Civilizacion(string);
 	//Civilizacion(string,int,int,int,int,int,int,int);
 
+//Misplaced setters and getters relocation needs to be done for these 3
 	void setBuildings( vector<Edificio> pbuildings){
 		buildings = pbuildings;
 	}
@@ -53,7 +56,7 @@ public:
 	vector<Edificio> getBuildings(){
 		return buildings;
 	}
-
+///
 
 	void setNombre(string pnombre){
 		nombre = pnombre;
