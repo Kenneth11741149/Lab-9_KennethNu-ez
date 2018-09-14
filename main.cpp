@@ -28,10 +28,14 @@ int main(){
 	 string input = ""; 
 	 string input2 = "";
 	 int option = 0;
+	 int option2 = 0;
 	 int temporal = 0;
 	 stringstream stream;
 	 int jugadores = 0;
 	 int civilizaciones = 0;
+
+	 ///////////
+	 Jugador actual;
 
 
 	 while(resp == 'S' || resp == 's'){ // Inicio del while de respuesta de usuario.
@@ -91,8 +95,6 @@ int main(){
 	 				}// Fin del if que valida que hayan almenos dos jugadores.
 
 
-
-
 	 			}	//FIn del scope case 2
 
 	 			break;
@@ -104,6 +106,93 @@ int main(){
 	 			break;
 	 		case 4:
 	 			{	//Inicio del scope case 4
+
+
+
+	 				char resp2 = 'S';
+	 				while(resp2 == 'S' || resp2 == 's'){
+		 				cout << endl;
+		 				cout << "1. Nuevo aldeano." << endl;
+		 				cout << "2. Buscar recursos." << endl;
+		 				cout << "3. Nuevo Edificio." << endl;
+		 				cout << "4. Nueva Tropa." << endl;
+		 				cout << "5. Desterrar poblacion." << endl;
+		 				cout << "6. Batalla." << endl;
+		 				cout << "7. Finalizar Turno." << endl;
+		 				cout << "8. Volver al menu principal." << endl;
+		 				input = "";
+		 				option2 = 0;
+		 				stringstream().swap(stream);
+		 				cin >> input;
+		 				stream << input;
+		 				stream >> option2;
+	 					switch(option2){
+	 						case 1:
+	 							{
+	 								Civilizacion temporal = actual.getCivilizacion();	 		
+	 								if(temporal.){
+	 								{
+
+	 							} // Fin del scope case 1
+
+	 							break;
+	 						case 2:
+	 							{
+
+	 							}
+
+	 							break;
+	 						case 3:
+	 							{
+
+	 							}
+	 								
+	 							break;
+	 						case 4:
+	 							{
+
+	 							}
+
+	 							break;
+	 						case 5:
+	 							{
+
+	 							}
+
+	 							break;
+	 						case 6:	
+	 							{
+
+	 							}
+
+	 							break;
+	 						case 7:
+	 							{
+
+	 							}
+
+	 							break;
+	 						case 8:
+	 							{
+
+	 							}
+
+	 							break;
+	 						default:
+	 							cout << "Invalid Entry" << endl;
+	 							break;
+	 					} // Fin de switch(option2)
+
+
+
+	 				} // Fin de la respuesta de usuario en el case 4.
+
+
+
+
+
+
+
 
 	 			}	//Fin del scope case 4
 
