@@ -30,15 +30,29 @@ private:
 	int poblacionmaxima; // Poblacion maxima.
 	int poblacionactual; // Poblacion actual
 	int capacidadpoblacion; // Capacidad de poblacion que aumenta con casas.
-	GuerreroEspecial trooper;
-	vector<Aldeano> aldeanos;
-	vector<Tropa>	troops;
+	GuerreroEspecial trooper; //El guerrero especial
+	vector<Aldeano> aldeanos; //Contador de aldeanos.
+	vector<Tropa>	troops; // Contador de tropas 
+	vector<Casa> housing; // Contador de facil accesso de casas
+	vector<Edificio> buildings; //Contador del resto de edificios.
 public:
 	Civilizacion(){
 		
 	}
 	Civilizacion(string);
 	//Civilizacion(string,int,int,int,int,int,int,int);
+
+	void setBuildings( vector<Edificio> pbuildings){
+		buildings = pbuildings;
+	}
+
+	void addBuilding(Edificio pbuildings){
+		buildings.push_back(pbuildings);
+	}
+
+	vector<Edificio> getBuildings(){
+		return buildings;
+	}
 
 
 	void setNombre(string pnombre){
@@ -95,6 +109,16 @@ public:
 		troops.push_back(ptroopa);
 	}
 
+	void setHousing(vector<Casa> phousing){
+		housing = phousing;
+	}
+
+
+	void addHouse(Casa pcasa){
+		housing.push_back(pcasa);
+		capacidadpoblacion+=5;
+	}
+
 	string getNombre(){
 		return nombre;
 	}
@@ -137,6 +161,11 @@ public:
 
 	vector<Tropa> getTroops(){
 		return troops;
+	}
+
+
+	vector<Casa> getHousing(){
+		return housing;
 	}
 
 
