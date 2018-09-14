@@ -1,6 +1,8 @@
 #ifndef CIVILIZACION_H
 #define CIVILIZACION_H
 
+#include "GuerreroEspecial.h"
+
 #include <iostream>
 using std::cin;
 using std::cout;
@@ -25,7 +27,7 @@ private:
 	int poblacionmaxima; // Poblacion maxima.
 	int poblacionactual; // Poblacion actual
 	int capacidadpoblacion; // Capacidad de poblacion que aumenta con casas.
-	//Falta el guerrero especial
+	GuerreroEspecial trooper;
 public:
 	Civilizacion(){
 		

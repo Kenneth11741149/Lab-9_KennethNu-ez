@@ -9,7 +9,7 @@ Civilizacion::Civilizacion(string pnombre){
 	poblacionmaxima = 1000; // Poblacion maxima.
 	poblacionactual = 0; // Poblacion actual
 	capacidadpoblacion = 700; // Capacidad de poblacion que aumenta con casas.
-	//Falta el guerrero especial
+	GuerreroEspecial trooper;
 }
 
 string Civilizacion::toString(){
