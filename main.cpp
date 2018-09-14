@@ -3,7 +3,7 @@
 #include "Aldeano.h"
 #include "Casa.h"
 #include "Cuartel.h"
-
+#include "Castillo.h"
 
 #include <iostream>
 using std::cin;
@@ -53,6 +53,8 @@ int main(){
 	 /////////// Even more random shit
 	 Jugador vacio;
 	 Jugador& actual = vacio;
+
+	 Civilizacion otratemp;
 
 	 /////	Special user values.
 	 int oro;
@@ -151,15 +153,15 @@ int main(){
 	 						cout << "Player: " << players[temporal].toString() << " Its your turn. " << endl;
 	 						actual = players[temporal];
 	 						case4validator++;
-	 						oro = actual.getCivilizacion().getOro();
-							madera = actual.getCivilizacion().getMadera();
-							piedra = actual.getCivilizacion().getPiedra();
-							alimento = actual.getCivilizacion().getAlimento();
-							poblacionmaxima = actual.getCivilizacion().getPoblacionmaxima();
-							poblacionactual = actual.getCivilizacion().getPoblacionactual();
-							capacidadpoblacion = actual.getCivilizacion().getCapacidadpoblacion();
-							numaldeanos = actual.getCivilizacion().getAldeanos().size();
-							numsoldados = actual.getCivilizacion().getTroops().size();
+	 						oro = players[temporal].getCivilizacion().getOro();
+							madera = players[temporal].getCivilizacion().getMadera();
+							piedra = players[temporal].getCivilizacion().getPiedra();
+							alimento = players[temporal].getCivilizacion().getAlimento();
+							poblacionmaxima = players[temporal].getCivilizacion().getPoblacionmaxima();
+							poblacionactual = players[temporal].getCivilizacion().getPoblacionactual();
+							capacidadpoblacion = players[temporal].getCivilizacion().getCapacidadpoblacion();
+							numaldeanos = players[temporal].getCivilizacion().getAldeanos().size();
+							numsoldados = players[temporal].getCivilizacion().getTroops().size();
 
 							cout << "Oro:       " << oro <<endl;
 							cout << "Madera:    " << madera << endl;
@@ -181,6 +183,7 @@ int main(){
 	 					resp2 = 'S';
 	 				}
 	 				while(resp2 == 'S' || resp2 == 's'){
+	 					actual = players[temporal];
 		 				cout << endl;
 		 				cout << "1. Nuevo aldeano." << endl;
 		 				cout << "2. Buscar recursos." << endl;
@@ -222,6 +225,7 @@ int main(){
 	 										cout << "Se ha creado un aldeano Mujer. " << endl; 
 	 									}
 	 									players[temporal].setCivilizacion(temporales);
+	 									actual = players[temporal];
 	 									gendermaker++;
 	 								}
 	 								
@@ -231,21 +235,22 @@ int main(){
 	 							break;
 	 						case 2:
 	 							{	//beginning of scope case 2
-
-
 	 								for(int i = 0; i < numaldeanos; i++){
 	 									alimento+=50;
 	 									madera+=40;
 	 									oro+=30;
 	 									piedra+=20;	
 	 								} //end for
-	 								players[temporal].getCivilizacion().setAlimento(alimento);
-	 								players[temporal].getCivilizacion().setMadera(madera);
-	 								players[temporal].getCivilizacion().setOro(oro);
-	 								players[temporal].getCivilizacion().setPiedra(piedra);
+	 								cout << "Colecta exitosa" << endl;
+	 								otratemp = players[temporal].getCivilizacion();
+	 								otratemp.setAlimento(alimento);
+	 								otratemp.setMadera(madera);
+	 								otratemp.setOro(oro);
+	 								otratemp.setPiedra(piedra);
+	 								players[temporal].setCivilizacion(otratemp);
 	 								actual = players[temporal];
 
-
+	 								
 
 	 							} // end of scope case 2
 
@@ -253,9 +258,9 @@ int main(){
 	 						case 3:
 	 							{	//Inicio del scope case 3 subswitchcase option2
 
-	 								cout << "1. Casa." << endl;
-	 								cout << "2. Cuartel." << endl;
-	 								cout << "3. Castillo." << endl;
+	 								cout << "1. Casa. (50 de madera)" << endl;
+	 								cout << "2. Cuartel. (120 de madera y 80 de piedra)" << endl;
+	 								cout << "3. Castillo. (275 de madera y 200 de piedra)" << endl;
 	 								cout << "Que deseas construir? " << endl;
 	 								input = "";
 	 								option3 = 0;
@@ -263,42 +268,57 @@ int main(){
 	 								cin >> input;
 	 								stream << input;
 	 								stream >> option3;
+	 								otratemp = players[temporal].getCivilizacion();
 	 								if(option3 == 1){
-	 									if(players[temporal].getCivilizacion().getCapacidadpoblacion() + 5 == players[temporal].getCivilizacion().getPoblacionmaxima()){
+	 									if(otratemp.getCapacidadpoblacion() + 5 == otratemp.getPoblacionmaxima()){
 	 										cout << "Has alcanzado tu limite de poblacion." << endl;
-	 									} else if(players[temporal].getCivilizacion().getMadera() >= 50 ){
+	 									} else if(otratemp.getMadera() >= 50 ){
 	 										madera -= 50;
-	 										players[temporal].getCivilizacion().setMadera(madera);
+	 										otratemp.setMadera(madera);
 	 										Casa newhouse = Casa();
-	 										players[temporal].getCivilizacion().addHouse(newhouse); //Automaticamente incrementa la capacidad a nivel de Objeto.
+	 										otratemp.addHouse(newhouse); //Automaticamente incrementa la capacidad a nivel de Objeto.
 	 										capacidadpoblacion += 5;
+	 										cout << "Casa exitosa" << endl;
+	 										players[temporal].setCivilizacion(otratemp);
+	 										actual = players[temporal];
 	 									} else {
 	 										cout << "No tienes suficiente madera para construirte un casa." << endl;
 	 									}
 
 	 								} else if(option3 == 2){
-	 									if(players[temporal].getCivilizacion().getMadera() >= 120 && players[temporal].getCivilizacion().getPiedra() >= 80){
+	 									otratemp = players[temporal].getCivilizacion();
+	 									if(otratemp.getMadera() >= 120 && otratemp.getPiedra() >= 80){
 	 										madera -= 120;
 	 										piedra -= 80;
-	 										players[temporal].getCivilizacion().setMadera(madera);
-	 										players[temporal].getCivilizacion().setPiedra(piedra);
+	 										otratemp.setMadera(madera);
+	 										otratemp.setPiedra(piedra);
 	 										Cuartel newcuartel = Cuartel();
-	 										players[temporal].getCivilizacion().addBuilding(newcuartel);
+	 										otratemp.addBuilding(newcuartel);
+	 										cout << "Cuartel exitoso" << endl;
+	 										players[temporal].setCivilizacion(otratemp);
+	 										actual = players[temporal];
 	 									} else {
 	 										cout << "No tienes suficiente madera o piedra para construirte un cartel. " << endl;
 	 									}
 
 
 	 								} else if(option3 == 3){
-
+	 									otratemp = players[temporal].getCivilizacion();
+	 									if(otratemp.getMadera() >= 275  && otratemp.getPiedra() >= 200){
+	 										Castillo newcastillo = Castillo();
+	 										madera-=275;
+	 										piedra-=200;
+	 										otratemp.setMadera(madera);
+	 										otratemp.setPiedra(piedra);
+	 										otratemp.addBuilding(newcastillo);
+	 										players[temporal].setCivilizacion(otratemp);
+	 										cout << "Castillo exitoso." << endl;
+	 									} else {
+	 										cout << "No tienes suficiente madera o piedra para construirte un Castillo. " << endl;
+	 									}
 	 								} else {
 	 									cout << "Invalid Entry" << endl;
 	 								} // end if of building decision.
-
-
-
-
-
 
 
 
