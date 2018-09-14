@@ -22,4 +22,5 @@ Civilizacion::~Civilizacion(){
 	housing.clear(); // Contador de facil accesso de casas
 	buildings.clear(); //Contador del resto de edificios.
 	training.clear();
+	polimorfictroops.clear();
 }

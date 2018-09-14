@@ -491,7 +491,7 @@ int main(){
 					 				stream << input;
 					 				stream >> option5;
 	 								if( option5 >= 0 && option5 <= players.size()-1 && players.size() > 0){
-	 									if(players[temporal].getCivilizacion().getTroops().size() > 0 && players[option5].getCivilizacion().getTroops().size() > 0){
+	 									if(players[temporal].getCivilizacion().getPolimorfictroops().size() > 0 && players[option5].getCivilizacion().getPolimorfictroops().size() > 0){
 	 										bool gameon = true;
 	 										int veces = 5;
 	 										while(gameon){
@@ -541,22 +541,30 @@ int main(){
 	 												vector<Tropa*> polimorfictroopstempnull = players[option5].getCivilizacion().getPolimorfictroops();
 	 												polimorfictroopstempnull.erase(polimorfictroopstempnull.begin() + option7);
 	 												players[option5].getCivilizacion().setPolimorfictroops(polimorfictroopstempnull);
+	 												polimorfictroopstempnull.clear();
 	 											} else {
 	 												//si retorna falso es que perdio.
 	 												vector<Tropa*> polimorfictroopstempnull2 = players[temporal].getCivilizacion().getPolimorfictroops();
 	 												polimorfictroopstempnull2.erase(polimorfictroopstempnull2.begin() + option6);
 	 												players[temporal].getCivilizacion().setPolimorfictroops(polimorfictroopstempnull2);
+	 												polimorfictroopstempnull2.clear();
 	 												cout << "Player one has perdido este encuentro. " << endl;
 
 	 											}
 	 											if(players[temporal].getCivilizacion().getPolimorfictroops().size() <= 0 || players[option5].getCivilizacion().getPolimorfictroops().size() <= 0){
 	 												gameon = false;
+	 												delete[] playerjuan;
+	 												delete[] playertwo;
+	 												if( players[temporal].getCivilizacion().getPolimorfictroops().size() < players[option5].getCivilizacion().getPolimorfictroops().size()){
+	 													cout << "Ha ganado player one." << endl;
+	 												}  else {
+	 													cout << "Ha ganado player dos." << endl;
+	 												}
 	 												
 	 											}
 	 										} //Fin del while de los turnos.
 	 										
 	 										
-
 
 
 	 									}	else {
