@@ -4,6 +4,10 @@
 #include "Casa.h"
 #include "Cuartel.h"
 #include "Castillo.h"
+#include "Soldado.h"
+#include "Caballero.h"
+#include "typeinfo"
+
 
 #include <iostream>
 using std::cin;
@@ -172,6 +176,22 @@ int main(){
 							cout << "Capacidad de Poblacion: " << capacidadpoblacion << endl; 
 							cout << "Numero de aldeanos: " << numaldeanos << endl;
 							cout << "Numero de soldados: " << numsoldados << endl;
+							otratemp = players[temporal].getCivilizacion();
+							for(int i = 0; i < otratemp.getTraining().size();i++){
+								if(     ((Tropa)otratemp.getTraining()[i]).getTurnosentrenamiento() > 0){
+									int yanotengovariables = ((Tropa)otratemp.getTraining()[i]).getTurnosentrenamiento();
+									if(yanotengovariables == 1){
+										cout << otratemp.getTraining()[i].toString() << "Ha terminado su entrenamiento" <<endl;
+										otratemp.addTropa(otratemp.getTraining()[i]);
+										vector<Tropa> lmfao = otratemp.getTraining();
+										lmfao.erase(lmfao.begin() + i);
+										cout << "" << endl;
+									}
+									yanotengovariables--;
+									((Tropa)otratemp.getTroops()[i]).setTurnosentrenamiento(yanotengovariables);
+
+								}
+							}
 
 	 				} else {
 	 						cout << "Invalid Entry. " << endl;
@@ -183,6 +203,7 @@ int main(){
 	 					resp2 = 'S';
 	 				}
 	 				while(resp2 == 'S' || resp2 == 's'){
+	 					otratemp =  players[temporal].getCivilizacion();
 	 					actual = players[temporal];
 		 				cout << endl;
 		 				cout << "1. Nuevo aldeano." << endl;
@@ -295,6 +316,7 @@ int main(){
 	 										Cuartel newcuartel = Cuartel();
 	 										otratemp.addBuilding(newcuartel);
 	 										cout << "Cuartel exitoso" << endl;
+	 										otratemp.addCuarteles();
 	 										players[temporal].setCivilizacion(otratemp);
 	 										actual = players[temporal];
 	 									} else {
@@ -311,6 +333,7 @@ int main(){
 	 										otratemp.setMadera(madera);
 	 										otratemp.setPiedra(piedra);
 	 										otratemp.addBuilding(newcastillo);
+	 										otratemp.addCastillos();
 	 										players[temporal].setCivilizacion(otratemp);
 	 										cout << "Castillo exitoso." << endl;
 	 									} else {
@@ -326,15 +349,115 @@ int main(){
 	 								
 	 							break;
 	 						case 4:
-	 							{
+	 							{	//Inicio del scope case 4 switch case option2
 
-	 							}
+	 								cout << "1. Soldado (1 turno)" << endl;
+	 								cout << "2. Caballeria (2 turnos)" << endl;
+	 								cout << "3. Guerrero Especial (3 turnos)" << endl;
+	 								cout << "Que deseas crear?" << endl;
+	 								input = "";
+	 								option3 = 0;
+	 								cin >> input;
+	 								stringstream().swap(stream);
+	 								stream << input;
+	 								stream >> option3;
+
+	 								otratemp = players[temporal].getCivilizacion();
+	 								bool soldat = false;
+	 								bool caballerie = false;
+	 								bool guerr = false;
+	 								if(otratemp.getCuarteles() > 0){
+	 									soldat = true;
+	 									caballerie = true;
+
+	 								} else if(otratemp.getCastillos() > 0) {
+	 									guerr = true;
+
+	 								}
+
+
+	 								if(option3 == 1){
+	 									if(soldat && otratemp.getPoblacionactual() + 1 <= otratemp.getPoblacionmaxima()){
+	 										if(otratemp.getAlimento() >= 90 && otratemp.getOro() >= 25){
+	 											Soldado newsoldier = Soldado();
+	 											otratemp.addTraining(newsoldier);
+	 											poblacionactual++;
+	 											players[temporal].setCivilizacion(otratemp);
+	 											cout << "Tropa se ha puesto bajo entrenamiento" << endl;
+	 										} else {
+	 											cout << "No tienes recursos suficiente" << endl;
+	 										}
+		 										
+	 									} else {
+	 										cout << "No tienes un cuartel. o te exediste tu limite de poblacion" << endl;
+	 									}
+
+	 								} else if(option3 == 2){
+	 									if(caballerie && otratemp.getPoblacionactual() + 1 <= otratemp.getPoblacionmaxima()){
+	 										if(otratemp.getAlimento() >= 110 && otratemp.getOro() >= 60){
+	 											Caballero newCaballero = Caballero();
+	 											otratemp.addTraining(newCaballero);
+	 											players[temporal].setCivilizacion(otratemp);
+	 											poblacionactual++;
+	 											cout << "Tropa se ha puesto bajo entrenamiento" << endl;
+	 										} else {
+	 											cout << "No tienes recursos suficiente" << endl;
+	 										}
+	 										
+	 									} else {
+	 										cout << "No tienes un cuartel o te exediste tu limite de poblacion"  << endl;
+	 									}
+	 								} else if(option3 == 3){
+	 									if(guerr && otratemp.getPoblacionactual() + 1 <= otratemp.getPoblacionmaxima()){
+	 										if(otratemp.getAlimento() >= 150 && otratemp.getOro() >=90){
+	 											GuerreroEspecial newGuerr = GuerreroEspecial();
+	 											otratemp.addTraining(newGuerr);
+	 											players[temporal].setCivilizacion(otratemp);
+	 											poblacionactual++;
+	 											cout << "Tropa se ha puesto bajo entrenamiento" << endl;
+	 										} else {
+	 											cout << "No tienes los recursos suficientes " << endl;
+	 										}
+	 										
+	 									} else {
+	 										cout << "No tienes castillos o te exediste de tu limite de poblacion." << endl;
+	 									}
+
+	 								} else {
+	 									cout << "Invalid Entry" << endl;
+	 								}
+	 								
+
+
+	 							}	//Fin del scope case 4 swtich case option 2
 
 	 							break;
-	 						case 5:
-	 							{
+	 						case 5: //Desterrar poblacion
+	 							{	//End of scope case 5 switch case option 2
+	 								otratemp = players[temporal].getCivilizacion();
+	 								otratemp.setOro(0);
+	 								otratemp.setMadera(0);
+	 								otratemp.setPiedra(0);
+	 								otratemp.setAlimento(100);
 
-	 							}
+	 								otratemp.setPoblacionactual(0);
+
+	 								GuerreroEspecial null;
+	 								otratemp.setTrooper(null);
+	 								vector<Aldeano> aldeanosnull = otratemp.getAldeanos();
+	 								aldeanosnull.clear();
+	 								vector<Tropa>troopsnull = otratemp.getTroops();
+	 								troopsnull.clear();
+
+	 								vector<Tropa> trainingnull = otratemp.getTraining();
+	 								trainingnull.clear();
+	 								otratemp.setTraining(trainingnull);
+	 								otratemp.setAldeanos(aldeanosnull);
+	 								otratemp.setTroops(troopsnull);
+	 								players[temporal].setCivilizacion(otratemp);
+	 								cout << "Poblacion desterrada exitosamente " << endl;
+
+	 							}	//End of scope case 5 switch case option 2
 
 	 							break;
 	 						case 6:	

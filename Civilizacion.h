@@ -32,11 +32,14 @@ private:
 	int poblacionmaxima; // Poblacion maxima.
 	int poblacionactual; // Poblacion actual
 	int capacidadpoblacion; // Capacidad de poblacion que aumenta con casas.
+	int cuarteles = 0;
+	int castillos = 0;
 	GuerreroEspecial trooper; //El guerrero especial
 	vector<Aldeano> aldeanos; //Contador de aldeanos.
 	vector<Tropa>	troops; // Contador de tropas 
 	vector<Casa> housing; // Contador de facil accesso de casas
 	vector<Edificio> buildings; //Contador del resto de edificios.
+	vector<Tropa> training;
 public:
 	Civilizacion(){
 		
@@ -44,7 +47,34 @@ public:
 	Civilizacion(string);
 	//Civilizacion(string,int,int,int,int,int,int,int);
 
+
 //Misplaced setters and getters relocation needs to be done for these 3
+
+	void setCuarteles(int pcuarteles){
+		cuarteles = pcuarteles;
+	}
+
+	void setCastillos(int pcastillos){
+		castillos = pcastillos;
+
+	}
+
+
+	int getCuarteles(){
+		return cuarteles;
+	}
+
+	int getCastillos(){
+		return castillos;
+	}
+
+	void addCuarteles(){
+		cuarteles++;
+	}
+
+	void addCastillos(){
+		castillos++;
+	}
 	void setBuildings( vector<Edificio> pbuildings){
 		buildings = pbuildings;
 	}
@@ -55,6 +85,19 @@ public:
 
 	vector<Edificio> getBuildings(){
 		return buildings;
+	}
+
+	void setTraining(vector<Tropa> ptraining){
+		training = ptraining;
+	}
+
+	vector<Tropa> getTraining(){
+		return training;
+	}
+
+	void addTraining(Tropa h){
+		training.push_back(h);
+		capacidadpoblacion++;
 	}
 ///
 
