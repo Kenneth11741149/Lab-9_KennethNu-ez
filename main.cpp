@@ -24,18 +24,37 @@ int main(){
 	 //Declaracion de variables reutilizables.
 	 //Declaracion de variables sin apuntadores me ahorra el paso de borrar manualmente las variables.
 	 vector<Civilizacion> civs;
+	 vector<Jugador> players;
 	 char resp = 's';
+	 char resp2 = 'S';
 	 string input = ""; 
 	 string input2 = "";
 	 int option = 0;
 	 int option2 = 0;
 	 int temporal = 0;
+	 int gendermaker = 0;
 	 stringstream stream;
 	 int jugadores = 0;
 	 int civilizaciones = 0;
+	 int case4validator = 0;
 
 	 ///////////
-	 Jugador actual;
+	 Jugador vacio;
+	 Jugador& actual = vacio;
+
+	 /////
+	 int oro;
+	 int madera; 
+	 int piedra;
+	 int alimento; 
+	 int poblacionmaxima; 
+	 int poblacionactual; 
+	 int capacidadpoblacion; 
+
+	 int numaldeanos;
+	 int numsoldados;
+
+	
 
 
 	 while(resp == 'S' || resp == 's'){ // Inicio del while de respuesta de usuario.
@@ -85,6 +104,7 @@ int main(){
 	 					stream >> temporal;
 	 					if( temporal >= 0 && temporal <= civs.size()-1){
 	 						Jugador nuevo = Jugador(input,civs[temporal]);
+	 						players.push_back(nuevo);
 	 						cout << "Player: " << input << " You have chosen the civilization. " << civs[temporal].toString() << endl;
 	 					} else {
 	 						cout << "Invalid Entry" << endl;
@@ -106,10 +126,49 @@ int main(){
 	 			break;
 	 		case 4:
 	 			{	//Inicio del scope case 4
+	 				cout << "Con que jugador va a ingresar? " << endl;
+	 				for(int i = 0; i < players.size(); i++){
+	 					cout << i <<". "<< players[i].toString() << endl;
+	 				}
+	 				input = "";
+	 				temporal = 0;
+	 				cin >> input;
+	 				stringstream().swap(stream);
+	 				stream << input;
+	 				stream >> temporal;
+	 				if( temporal >= 0 && temporal <= players.size()-1 && players.size() > 0){
+	 						cout << "Player: " << players[temporal].toString() << " Its your turn. " << endl;
+	 						actual = players[temporal];
+	 						case4validator++;
+	 						oro = actual.getCivilizacion().getOro();
+							madera = actual.getCivilizacion().getMadera();
+							piedra = actual.getCivilizacion().getPiedra();
+							alimento = actual.getCivilizacion().getAlimento();
+							poblacionmaxima = actual.getCivilizacion().getPoblacionmaxima();
+							poblacionactual = actual.getCivilizacion().getPoblacionactual();
+							capacidadpoblacion = actual.getCivilizacion().getCapacidadpoblacion();
+							numaldeanos = actual.getCivilizacion().getAldeanos().size();
+							numsoldados = actual.getCivilizacion().getTroops().size();
 
+							cout << "Oro:       " << oro <<endl;
+							cout << "Madera:    " << madera << endl;
+							cout << "Piedra: 	" << piedra << endl;
+							cout << "Alimento:  " << alimento << endl;
+							cout << "Poblacion Maxima: " << poblacionmaxima << endl;
+							cout << "Poblacion Actual: " << poblacionactual << endl;
+							cout << "Capacidad de Poblacion: " << capacidadpoblacion << endl; 
+							cout << "Numero de aldeanos: " << numaldeanos << endl;
+							cout << "Numero de soldados: " << numsoldados << endl;
 
-
-	 				char resp2 = 'S';
+	 				} else {
+	 						cout << "Invalid Entry. " << endl;
+	 				}
+	 				
+	 				if(case4validator == 0){
+	 					resp2 = 'N';
+	 				} else {
+	 					resp2 = 'S';
+	 				}
 	 				while(resp2 == 'S' || resp2 == 's'){
 		 				cout << endl;
 		 				cout << "1. Nuevo aldeano." << endl;
@@ -128,24 +187,72 @@ int main(){
 		 				stream >> option2;
 	 					switch(option2){
 	 						case 1:
-	 							{
-	 								Civilizacion temporal = actual.getCivilizacion();	 		
-	 								if(temporal.){
-	 								{
+	 							{ // Inicio del scope del Case 1 option 2.
 
-	 							} // Fin del scope case 1
+	 								Civilizacion temporales = actual.getCivilizacion();	 
+	 								if(temporales.getAlimento() < 55){
+	 									cout << "No tienes suficientes recursos." << endl;
+	 								} else if(temporales.getPoblacionactual()+1 > temporales.getCapacidadpoblacion()){
+	 									cout << "Has exedido el limite de tu poblacion." << endl;
+	 								} else {
+	 									int contador = temporales.getAlimento();
+	 									contador -= 55;
+	 									temporales.setAlimento(contador);
+	 									numaldeanos++;
+	 									if(gendermaker % 2 == 0){
+	 										Aldeano hombre = Aldeano("Hombre");
+	 										temporales.addAldeano(hombre);
+	 										
+	 										cout << "Se ha creado un aldeano Hombre. " << endl;
+	 									} else {
+	 										Aldeano mujer = Aldeano("Mujer");
+	 										temporales.addAldeano(mujer);
+	 										
+	 										cout << "Se ha creado un aldeano Mujer. " << endl; 
+	 									}
+	 									players[temporal].setCivilizacion(temporales);
+	 									gendermaker++;
+	 								}
+	 								
+
+	 							} // Fin del scope case 1 option 2 switch
 
 	 							break;
 	 						case 2:
-	 							{
+	 							{	//beginning of scope case 2
 
-	 							}
+
+	 								for(int i = 0; i < numaldeanos; i++){
+	 									alimento+=50;
+	 									madera+=40;
+	 									oro+=30;
+	 									piedra+=20;	
+	 								} //end for
+	 								players[temporal].getCivilizacion().setAlimento(alimento);
+	 								players[temporal].getCivilizacion().setMadera(madera);
+	 								players[temporal].getCivilizacion().setOro(oro);
+	 								players[temporal].getCivilizacion().setPiedra(piedra);
+
+
+
+	 							} // end of scope case 2
 
 	 							break;
 	 						case 3:
-	 							{
+	 							{	//Inicio del scope case 3 subswitchcase option2
 
-	 							}
+	 								cout << "1. Casa." << endl;
+	 								cout << "2. Cuartel." << endl;
+	 								cout << "3. Castillo." << endl;
+
+
+
+
+
+
+
+
+	 							}	//Inicio del scope case 3 switch case option2
 	 								
 	 							break;
 	 						case 4:
@@ -168,7 +275,7 @@ int main(){
 	 							break;
 	 						case 7:
 	 							{
-
+	 								resp2 = 'N';
 	 							}
 
 	 							break;

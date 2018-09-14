@@ -2,6 +2,9 @@
 #define CIVILIZACION_H
 
 #include "GuerreroEspecial.h"
+#include "Aldeano.h"
+#include "Tropa.h"
+
 
 #include <iostream>
 using std::cin;
@@ -28,6 +31,8 @@ private:
 	int poblacionactual; // Poblacion actual
 	int capacidadpoblacion; // Capacidad de poblacion que aumenta con casas.
 	GuerreroEspecial trooper;
+	vector<Aldeano> aldeanos;
+	vector<Tropa>	troops;
 public:
 	Civilizacion(){
 		
@@ -68,6 +73,28 @@ public:
 		capacidadpoblacion = pcapacidadpoblacion;
 	}
 
+	void setTrooper(GuerreroEspecial ptrooper){
+		trooper = ptrooper;
+	}
+
+	void setAldeanos(vector<Aldeano> paldeanos){
+		aldeanos = paldeanos;
+
+	}
+
+	void addAldeano(Aldeano paldeano){
+		aldeanos.push_back(paldeano);
+		poblacionactual++;
+	}
+
+	void setTroops(vector<Tropa> ptroops){
+		troops = ptroops;
+	}
+
+	void addTropa(Tropa ptroopa){
+		troops.push_back(ptroopa);
+	}
+
 	string getNombre(){
 		return nombre;
 	}
@@ -98,6 +125,18 @@ public:
 
 	int getCapacidadpoblacion(){
 		return capacidadpoblacion;
+	}
+
+	GuerreroEspecial getTrooper(){
+		return trooper;	
+	}
+
+	vector<Aldeano> getAldeanos(){
+		return aldeanos;
+	}
+
+	vector<Tropa> getTroops(){
+		return troops;
 	}
 
 
